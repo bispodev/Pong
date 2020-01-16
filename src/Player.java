@@ -5,7 +5,7 @@ public class Player {
 
     public boolean right, left;
     public int x, y, widht, height, speed;
-
+    
     public Player(int x, int y, int speed) {
         this.x = x;
         this.y = y;

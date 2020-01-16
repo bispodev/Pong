@@ -21,6 +21,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Player player;
     public static Enemy enemy;
     public static Ball ball;
+    public static Points points;
 
     // Metodo construtor
     public Game() {
@@ -28,7 +29,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
         this.addKeyListener(this);
         player = new Player(100, HEIGHT - 5, 5);
         enemy = new Enemy(100, 0);
-        ball = new Ball(100, HEIGHT/2);
+        ball = new Ball(100, HEIGHT / 2);
+        points = new Points();
+    }
+
+    public Game(int red, int blue) {
+        this.setPreferredSize(new Dimension(WIDHT * SCALE, HEIGHT * SCALE));
+        this.addKeyListener(this);
+        player = new Player(100, HEIGHT - 5, 5);
+        enemy = new Enemy(100, 0);
+        ball = new Ball(100, HEIGHT / 2);
+        points = new Points(red, blue);
     }
 
     // Incializa a aplicação
@@ -37,6 +48,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         final JFrame frame = new JFrame("Pong");
 
         frame.requestFocus();
+        frame.requestFocusInWindow();
         frame.setResizable(false); // Faz com que o usuario não redimenciona a janale
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Evita que a aplicação fique rodando mesmo com o frame
                                                               // fechado
@@ -74,20 +86,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, WIDHT, HEIGHT);
 
-    //Enemy
-        enemy.render(graphics);
+        // Points
+        points.render(graphics);
+
+        // Ball
         ball.render(graphics);
 
-    // Player
+        // Enemy
+        enemy.render(graphics);
+
+        // Player
         player.render(graphics);
+
         // Desenhando o player
         graphics = bs.getDrawGraphics();
         graphics.drawImage(layer, 0, 0, WIDHT * SCALE, HEIGHT * SCALE, null);
         // Renderizando em tela
         bs.show();
     }
-
-
 
     @Override
     public void run() {

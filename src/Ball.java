@@ -6,7 +6,6 @@ public class Ball {
 
     public double x, y;
     public int widht, height;
-
     public double transformX, transformY, speed = 1;
 
     public Ball(final double x, final double y) {
@@ -37,12 +36,11 @@ public class Ball {
         if (y >= Game.HEIGHT) {
             Debug("ponto Inimigo");
             speed = 0;
-            new Game();
-            return;
+            Game.points.setPointsRed();
         } else if (y < 0) {
             Debug("ponto do Jogador");
             speed = 0;
-            new Game();
+            Game.points.setPointsBlue();
             return;
         }
 
